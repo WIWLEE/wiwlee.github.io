@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Jihyun Lee's Portfolio</title>
+    <title>Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
 
@@ -15,7 +15,7 @@
         }
 
         header {
-            background: #5D1049; /* Dark Purple */
+            background: #5D1049; 
             color: #fff;
             padding: 10px 0;
             text-align: center;
@@ -39,7 +39,7 @@
         }
 
         nav a:hover {
-            color: #FFD700; /* Gold */
+            color: #FFD700; 
         }
 
 
@@ -50,10 +50,10 @@
         
         #portfolio img {
             border-radius: 20%;
-            margin: 10px; /* Fixed spacing */
+            margin: 10px; 
             border: 5px solid #5D1049;
-            object-fit: cover; /* Ensures the image covers the frame */
-            transition: transform 0.3s ease; /* Smooth transition for scaling */
+            object-fit: cover; 
+            transition: transform 0.3s ease; 
         }
 
         #portfolio h1 {
@@ -68,27 +68,26 @@
         .social-links a {
             text-decoration: none;
             margin: 0 10px;
-            color: #5D1049; /* Dark Purple */
+            color: #5D1049; 
             font-size: 24px;
             transition: color 0.3s ease;
         }
 
         .social-links a:hover {
-            color: #FFD700; /* Gold */
+            color: #FFD700; 
         }
 
         .project {
-            background-color: #ffffff; /* Light purple for project background */
-            margin: 20px auto; /* Added margin */
+            background-color: #ffffff; 
+            margin: 20px auto; 
             padding: 30px 0;
             box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-            border: 2px solid #9575CD; /* Slightly darker purple for border */
-            border-radius: 10px; /* Rounded corners for the box */
+            border: 2px solid #9575CD; 
+            border-radius: 10px; 
         }
 
         .assignments {
-            background-color: #ffffff; /* For assignments */
-            /* Additional specific styles for assignments */
+            background-color: #ffffff; 
         }
 
         .project a {
@@ -125,7 +124,7 @@
 
         #projects h2 {
             text-transform: uppercase;
-            color: #5D1049; /* Dark Purple */
+            color: #5D1049; 
             font-weight: 600;
         }
 
@@ -144,12 +143,12 @@
             text-align: center;
             margin-top : 100px;
             text-transform: uppercase;
-            color: #5D1049; /* Dark Purple */
+            color: #5D1049; 
             font-weight: 600;
         }
 
         #skills li {
-            background: #5D1049; /* Dark Purple */
+            background: #5D1049; 
             display: inline-block;
             margin: 5px;
             margin-bottom : 10px;
@@ -160,7 +159,7 @@
         }
 
         #study li {
-            background: #b762a1; /* Dark Purple */
+            background: #b762a1; 
             display: inline-block;
             margin: 5px;
             margin-bottom : 10px;
@@ -180,7 +179,7 @@
             text-align: center;
             margin-top : 100px;
             text-transform: uppercase;
-            color: #b762a1; /* Dark Purple */
+            color: #b762a1;
             font-weight: 600;
         }
 
@@ -206,7 +205,7 @@
         }
         
         .container {
-            align-items: flex-start; /* 아이템을 맨 위로 정렬 */
+            align-items: flex-start; 
             flex: 1;
             max-width: 500px;
             margin: auto;
@@ -214,21 +213,20 @@
         }
         
         .flex-item {
-            background-color: #ffffff; /* Example background color for projects */
+            background-color: #ffffff; 
             padding: 20px;
-            margin-top: 20px; /* Separates item from the heading */
+            margin-top: 20px; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             border-radius: 10px;
         }
 
-        /* You might want to adjust flex-basis for responsive design */
         @media (max-width: 500px) {
             .flex-container {
                 flex-direction: column;
             }
         
             .container {
-                margin: 0 10px; /* Keeps margins for a consistent look */
+                margin: 0 10px;
             }
         }
 
@@ -263,37 +261,30 @@
         <div class="container">
             <h2>Projects</h2>
             <div class="flex-item projects">
-                <!-- Your projects here -->
                 <article>
                     <h3>게임 패드 모바일 크로스플랫폼 Application</h3>
                     <p>Samsung Electronics DX VD 사업부 IS랩에서 6주동안 인턴 근무를 진행하였습니다. Smart TV의 게임 패널의 활용성을 높이기 위해 Game Pad Application 프로토타입을 제작하였습니다</p>
                     <img src = "src/pot1.jpg" width="65">
                     <img src = "src/pot2.jpeg" width="290">
                 </article>
-                <!-- Add more projects as needed -->
             </div>
             <div class="flex-item projects">
-                <!-- Your projects here -->
                 <article>
                     <h3>멀티 추론 게임 'PONDOR'</h3>
                     <p>게임 개발 동아리 GPOS에서 NDM 대회를 출전하며 제작한 게임으로, 논리 퍼즐 중 하나인 양팔 저울 문제를 모티브로 제작된 여럿이서 즐길 수 있는 추리 게임입니다.
                         자신이 시민인지 능력자인지 알 수 없다는 조건 속에서 자신만의 정보를 활용해 적극적인 토론으로 자신의 정보는 숨기고 다른 사람의 정보를 추리해야 하는 게임입니다.</p>
                     <a href="https://github.com/WIWLEE/Ponder" target="_blank" class="project-link">GitHub URL</a>
                 </article>
-                <!-- Add more projects as needed -->
             </div>
             <div class="flex-item projects">
-                <!-- Your projects here -->
                 <article>
                     <h3>Verilog HDL를 이용한 FPGA 구현 : 기억력 테스트</h3>
                     <p>LED의 On-Off 순서 및 개수를 기억하고 기억력을 테스트하는 게임이다. </p>
                     <img src = "src/pot3.jpg" width="400">
                     <a href="https://github.com/WIWLEE/CSED273" target="_blank" class="project-link">GitHub URL</a>
                 </article>
-                <!-- Add more projects as needed -->
             </div>
             <div class="flex-item projects">
-                <!-- Your projects here -->
                 <article>
                     <h3>포스테키안 특화 중고시장 모바일 플랫폼</h3>
                     <p>UGRP(학부생 연구 프로그램) 프로젝트를 통해서 중고 시장 앱 제작 및 출시를 진행하였습니다</p>
@@ -302,14 +293,12 @@
                     <img src = "src/pot6.jpg" width="150">
                     <a href="https://github.com/WIWLEE/SupoMarket" target="_blank" class="project-link">GitHub URL</a>
                 </article>
-                <!-- Add more projects as needed -->
             </div>
         </div>
         
         <div class="container">
             <h2>Research/Experiment</h2>
             <div class="flex-item assignments">
-                <!-- Your assignments or other content here -->
                 <article>
                     <h3>Capstone Design Project in EE</h3>
                     <p>Reconfigurable 로직 데모 kit를 제작하고 소모전력절감 효과를 검증하는 것을 목표로 합니다. 
@@ -320,10 +309,8 @@
                         해당 연구를 통해 기존의 회로의 소모 전력을 절감시키고 보다 적은 개수의 소자를 사용하여 
                         구현할 수 있는 효과를 기대할 수 있습니다. </p>
                 </article>
-                <!-- Add more content as needed -->
             </div>
             <div class="flex-item assignments">
-                <!-- Your assignments or other content here -->
                 <article>
                     <h3>Task Study Project in CSE</h3>
                     <p>첫 번째 가설 ‘워터마킹은 한글 텍스트에 잘 적용되지 않을 것이다’의 검증을 진행합니다. 
@@ -334,10 +321,8 @@
                         사용한 유형 I 오류(인간의 텍스트가 워터마킹된 경우)와 유형 II 오류(기계 텍스트가
                         감지되지 않는 경우) 비율을 사용하여 워터마크 강도를 측정할 수 있습니다.</p>
                 </article>
-                <!-- Add more content as needed -->
             </div>
             <div class="flex-item assignments">
-                <!-- Your assignments or other content here -->
                 <article>
                     <h3>Electronics&Electrical Eng.Lab 1</h3>
                     <p>1. 심전도 보드 제작 및 측정<br>
@@ -348,16 +333,13 @@
                         6. 초음파 센서의 원리와 응용<br>
                         7. FPGA를 이용한 디지털 시스템 설계</p>
                 </article>
-                <!-- Add more content as needed -->
             </div>
             <div class="flex-item assignments">
-                <!-- Your assignments or other content here -->
                 <article>
                     <h3>Electronics&Electrical Eng.Lab 2</h3>
                     <p>전자전기공학 실험2</p>
                     <a href="https://github.com/WIWLEE/EEengLab" target="_blank" class="project-link">GitHub URL</a>
                 </article>
-                <!-- Add more content as needed -->
             </div>
         </div>
     </div>
