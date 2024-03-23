@@ -2,75 +2,412 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potpolio</title>
+    <title>Jihyun Lee's Portfolio</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: 'Montserrat', sans-serif;
             background-color: #f4f4f4;
+            color: #333;
+            /* text-align: center;*/
         }
+
         header {
-            background-color: #333;
+            background: #5D1049; /* Dark Purple */
             color: #fff;
+            padding: 10px 0;
             text-align: center;
-            padding: 1em;
         }
-        section {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        nav ul {
+            padding: 0;
+            list-style: none;
         }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #FFD700; /* Gold */
+        }
+
+
+        #portfolio {
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        #portfolio img {
+            border-radius: 20%;
+            margin: 10px; /* Fixed spacing */
+            border: 5px solid #5D1049;
+            object-fit: cover; /* Ensures the image covers the frame */
+            transition: transform 0.3s ease; /* Smooth transition for scaling */
+        }
+
+        #portfolio h1 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .social-links {
+            margin: 15px 0;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            margin: 0 10px;
+            color: #5D1049; /* Dark Purple */
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #FFD700; /* Gold */
+        }
+
+        .project {
+            background-color: #ffffff; /* Light purple for project background */
+            margin: 20px auto; /* Added margin */
+            padding: 30px 0;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+            border: 2px solid #9575CD; /* Slightly darker purple for border */
+            border-radius: 10px; /* Rounded corners for the box */
+        }
+
+        .assignments {
+            background-color: #ffffff; /* For assignments */
+            /* Additional specific styles for assignments */
+        }
+
+        .project a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .project a:hover {
+            background-color: #555;
+        }
+
+        .project-link {
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 0px;
+            border-radius: 4px;
+            background-color: #7e2767;
+            color: #ffffff;
+            transition: background-color 0.3s;
+        }
+
+        .project-link:hover,
+        .project-link:focus {
+            background-color: #ffd899;
+        }
+
+
+        #projects h2 {
+            text-transform: uppercase;
+            color: #5D1049; /* Dark Purple */
+            font-weight: 600;
+        }
+
+        #projects p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        #skills ul {
+            list-style: none;
+            text-align: center;
+            margin : 0 0;
+        }
+
+        #skills h2{
+            text-align: center;
+            margin-top : 100px;
+            text-transform: uppercase;
+            color: #5D1049; /* Dark Purple */
+            font-weight: 600;
+        }
+
+        #skills li {
+            background: #5D1049; /* Dark Purple */
+            display: inline-block;
+            margin: 5px;
+            margin-bottom : 10px;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 300;
+        }
+
+        #study li {
+            background: #b762a1; /* Dark Purple */
+            display: inline-block;
+            margin: 5px;
+            margin-bottom : 10px;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 300;
+        }
+
+        #study ul {
+            list-style: none;
+            text-align: center;
+            margin : 0 0;
+        }
+
+        #study h2{
+            text-align: center;
+            margin-top : 100px;
+            text-transform: uppercase;
+            color: #b762a1; /* Dark Purple */
+            font-weight: 600;
+        }
+
         footer {
-            text-align: center;
-            padding: 1em;
-            background-color: #333;
+            background: #333;
             color: #fff;
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
         }
+
+        footer p {
+            margin: 0;
+        }
+
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 200px;
+            gap: 0px;
+        }
+        
+        .container {
+            align-items: flex-start; /* 아이템을 맨 위로 정렬 */
+            flex: 1;
+            max-width: 500px;
+            margin: auto;
+            padding: 0 0px;
+        }
+        
+        .flex-item {
+            background-color: #ffffff; /* Example background color for projects */
+            padding: 20px;
+            margin-top: 20px; /* Separates item from the heading */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        /* You might want to adjust flex-basis for responsive design */
+        @media (max-width: 500px) {
+            .flex-container {
+                flex-direction: column;
+            }
+        
+            .container {
+                margin: 0 10px; /* Keeps margins for a consistent look */
+            }
+        }
+
+        
     </style>
 </head>
 <body>
-
     <header>
-        <h1>이지현의 포트폴리오</h1>
+        <nav>
+            <ul>
+                <li><a href="#study">Study</a></li>
+                <li><a href="#real_portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section>
-        <h2>Introduction</h2>
-        <p>포항공과대학교 컴퓨터공학과에 재학 중인 이지현입니다.</p>
-        <!--<div class="gallery">-->
-        <img src="profile.jpeg" alt="profile" width="100">
-        <!--</div>-->
+    <section id="portfolio" class="container">
+        <img src="profile2.jpg" alt="profile" width="150", height="200">
+        <h1>Jihyun Lee</h1>
+        <p>소통하는 공학자, 이지현입니다</p>
+        <p>POSTECH에서 컴퓨터공학과 전자전기공학을 전공하고 있습니다</p>
+        <div class="social-links">
+            <a href="https://github.com/wiwlee">GitHub</a>
+            <a href="https://instagram.com/zhyunnni_">Instagram</a>
+            <a href="file:///Users/wiwlee/Desktop/wiwlee/CV.pdf" download>CV</a>
+        </div>
     </section>
 
-    <section>
-        <h2>프로젝트</h2>
-        <h3>프로젝트 1</h3>
-        <p>프로젝트 1에 대한 설명이나 성과를 여기에 작성하세요.</p>
+    <section id = "real_portfolio">
+    <div class="flex-container">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="flex-item projects">
+                <!-- Your projects here -->
+                <article>
+                    <h3>게임 패드 모바일 크로스플랫폼 Application</h3>
+                    <p>Samsung Electronics DX VD 사업부 IS랩에서 6주동안 인턴 근무를 진행하였습니다. Smart TV의 게임 패널의 활용성을 높이기 위해 Game Pad Application 프로토타입을 제작하였습니다</p>
+                    <img src = "src/pot1.jpg" width="65">
+                    <img src = "src/pot2.jpg" width="300">
+                </article>
+                <!-- Add more projects as needed -->
+            </div>
+            <div class="flex-item projects">
+                <!-- Your projects here -->
+                <article>
+                    <h3>멀티 추론 게임 'PONDOR'</h3>
+                    <p>게임 개발 동아리 GPOS에서 NDM 대회를 출전하며 제작한 게임으로, 논리 퍼즐 중 하나인 양팔 저울 문제를 모티브로 제작된 여럿이서 즐길 수 있는 추리 게임입니다.
+                        자신이 시민인지 능력자인지 알 수 없다는 조건 속에서 자신만의 정보를 활용해 적극적인 토론으로 자신의 정보는 숨기고 다른 사람의 정보를 추리해야 하는 게임입니다.</p>
+                    <a href="https://github.com/WIWLEE/Ponder" target="_blank" class="project-link">GitHub URL</a>
+                </article>
+                <!-- Add more projects as needed -->
+            </div>
+            <div class="flex-item projects">
+                <!-- Your projects here -->
+                <article>
+                    <h3>Verilog HDL를 이용한 FPGA 구현 : 기억력 테스트</h3>
+                    <p>LED의 On-Off 순서 및 개수를 기억하고 기억력을 테스트하는 게임이다. </p>
+                    <img src = "src/pot3.jpg" width="400">
+                    <a href="https://github.com/WIWLEE/CSED273" target="_blank" class="project-link">GitHub URL</a>
+                </article>
+                <!-- Add more projects as needed -->
+            </div>
+            <div class="flex-item projects">
+                <!-- Your projects here -->
+                <article>
+                    <h3>포스테키안 특화 중고시장 모바일 플랫폼</h3>
+                    <p>UGRP(학부생 연구 프로그램) 프로젝트를 통해서 중고 시장 앱 제작 및 출시를 진행하였습니다</p>
+                    <img src = "src/pot4.jpg" width="150">
+                    <img src = "src/pot5.jpg" width="150">
+                    <img src = "src/pot6.jpg" width="150">
+                    <a href="https://github.com/WIWLEE/SupoMarket" target="_blank" class="project-link">GitHub URL</a>
+                </article>
+                <!-- Add more projects as needed -->
+            </div>
+        </div>
+        
+        <div class="container">
+            <h2>Research/Experiment</h2>
+            <div class="flex-item assignments">
+                <!-- Your assignments or other content here -->
+                <article>
+                    <h3>Capstone Design Project in EE</h3>
+                    <p>Reconfigurable 로직 데모 kit를 제작하고 소모전력절감 효과를 검증하는 것을 목표로 합니다. 
+                        기존에 사용했던 Te-ZnO AAS 소자가 아닌, 새로운 구조의 Unit cell을 디자인하여 
+                        and, or의 reconfigurable 특성을 관찰하고 모델링을 진행합니다. 
+                        이후 해당 AAS 기반으로 logic gate 및 mux, adder 등 상위 회로를 이용해 demo kit를 설계하여
+                        CMOS회로와 전력 소모 및 동작 주파수를 비교할 예정입니다. 
+                        해당 연구를 통해 기존의 회로의 소모 전력을 절감시키고 보다 적은 개수의 소자를 사용하여 
+                        구현할 수 있는 효과를 기대할 수 있습니다. </p>
+                </article>
+                <!-- Add more content as needed -->
+            </div>
+            <div class="flex-item assignments">
+                <!-- Your assignments or other content here -->
+                <article>
+                    <h3>Task Study Project in CSE</h3>
+                    <p>첫 번째 가설 ‘워터마킹은 한글 텍스트에 잘 적용되지 않을 것이다’의 검증을 진행합니다. 
+                        한글 전처리 패키지, 토크나이징 과정을 학습하며 한글 언어모델의 배경
+                        학습과 활용 방법을 구상합니다. 이후 A Watermark for Large Language Models (Maryland,
+                        2023) 알고리즘(Text Generation with Hard Red List, Soft Red List, Private watermarking)을
+                        이용해 특정 한글 언어모델에 적용시켜 성능 지표를 확인합니다. 기본적으로 논문에서
+                        사용한 유형 I 오류(인간의 텍스트가 워터마킹된 경우)와 유형 II 오류(기계 텍스트가
+                        감지되지 않는 경우) 비율을 사용하여 워터마크 강도를 측정할 수 있습니다.</p>
+                </article>
+                <!-- Add more content as needed -->
+            </div>
+            <div class="flex-item assignments">
+                <!-- Your assignments or other content here -->
+                <article>
+                    <h3>Electronics&Electrical Eng.Lab 1</h3>
+                    <p>1. 심전도 보드 제작 및 측정<br>
+                        2. Quadcopter의 위치 및 자세 제어 실습 및 자율 비행 실습<br>
+                        3. 딥러닝을 이용한 영상 인식 실습 <br>
+                        4. 마이크로 컨트롤러 응용시스템 <br>
+                        5. MATLAB을 이용한 통신 실험<br>
+                        6. 초음파 센서의 원리와 응용<br>
+                        7. FPGA를 이용한 디지털 시스템 설계</p>
+                </article>
+                <!-- Add more content as needed -->
+            </div>
+            <div class="flex-item assignments">
+                <!-- Your assignments or other content here -->
+                <article>
+                    <h3>Electronics&Electrical Eng.Lab 2</h3>
+                    <p>전자전기공학 실험2</p>
+                    <a href="https://github.com/WIWLEE/EEengLab" target="_blank" class="project-link">GitHub URL</a>
+                </article>
+                <!-- Add more content as needed -->
+            </div>
+        </div>
+    </div>
+</section>
+    
+    
+    <section id="study">
+        <h2>Study</h2>
+        <ul>
+            <li>데이터구조</li>
+            <li>객체지향프로그래밍</li>
+            <li>컴퓨터구조</li>
+            <li>운영체제</li>
+            <li>알고리즘</li>
+            <li>딥러닝</li>
+            <li>기계학습</li>
+            <li>통계적데이터마이닝</li>
+        </ul>
+        <ul>
+            <li>전자기학개론</li>
+            <li>디지털시스템설계</li>
+            <li>회로이론</li>
+            <li>전자회로</li>
+            <li>신호및시스템</li>
+            <li>전자전기공학실험</li>
+        </ul>
+</section>
 
-        <h3>프로젝트 2</h3>
-        <p>프로젝트 2에 대한 설명이나 성과를 여기에 작성하세요.</p>
-    </section>
-
-    <section>
-        <h2>기술 스택</h2>
+    <section id="skills">
+        <h2>Skills</h2>
         <ul>
             <li>C/C++</li>
-            <li>python</li>
-            <li>R</li>
-            <li>Dart</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
+            <li>C#</li>
+            <li>Flutter</li>
+            <li>Python</li>
+            <li>Tensorflow</li>
+            <li>HTML/CSS</li>
+        </ul>
+        <ul>
+            <li>Veroilog</li>
+            <li>MatLab</li>
+            <li>LTSpice</li>
+            <li>HSpice</li>
+            <li>Origin</li>
         </ul>
     </section>
 
+    <section id="contact">
     <footer>
-        <p>&copy; 2024 포트폴리오. 만든이: [wiwlee]</p>
+        <p>Contact information</p>
+        <p>io0818@postech.ac.kr</p>
     </footer>
-
-</body>
+    </section>
 </html>
