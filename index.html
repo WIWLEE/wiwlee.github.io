@@ -198,6 +198,7 @@
 
         .flex-container {
             display: flex;
+            align-items: start;
             justify-content: space-start;
             min-width: 700px;
             margin: 0 200px;
@@ -207,7 +208,7 @@
         .container {
             align-items: flex-start; 
             flex: 1;
-            max-width: 500px;
+            max-width: auto;
             margin: auto;
             padding: 0 0px;
         }
@@ -228,6 +229,12 @@
             .container {
                 margin: 0 10px;
             }
+        }
+
+        #web {
+            width: 200px;
+            height: 120px;
+            background-size: cover;
         }
 
         
@@ -295,6 +302,27 @@
                     <a href="https://github.com/WIWLEE/SupoMarket" target="_blank" class="project-link">GitHub URL</a>
                 </article>
             </div>
+            <div class="flex-item projects">
+                <article>
+                    <h3>User workload 환경에서 waf의 major factor 검증</h3>
+                    <p>SK 하이닉스 Solution PE 부서에서 반도체 수명 신뢰성 지표 WAI값을 host write에 따라서 분석하고, 유저 워크로드 상에서 Idle 시간에 따른 그래프 개형을 분석하였습니다.  </p>
+                    <p>Idle의 시간을 1s이상 주었을 때 (2s, 5s) 모두 유사한 개형을 띄었고, 1s 라는 시간이 sSLC가 모두 migration되는 충분한 시간임을 확인할 수 있었습니다. Delay를 주지 않았을 때에는 계속해서 nvme command가 입력되어 sSLC가 migration될 수 없음을 알 수 있었고, dSLC를 사용해 WAI가 빨리 올라가기 때문에 수명이 낮아지는 것까지 확인할 수 있었습니다. </p>
+                </article>
+            </div>
+            <div class="flex-item projects">
+                <article>
+                    <div>
+                        <h3>TIGER HACK Food Ingredient Manager</h3>
+                        <p>Tiger Hackerton in U of missouri 에서 진행한 음식 위생 관리 매니저 웹입니다. REACT, node.js, mySQL 이용하였습니다</p>
+                        <img id = "web" src = "src/web 1.png" width="150" >
+                        <img id = "web" src = "src/web 2.png" width="150">
+                        <img id = "web" src = "src/web 3.png" width="150">
+                        <img id = "web" src = "src/web 4.png" width="150">
+                        <!-- <img id = "web" src = "src/web 5.png" width="150"> -->
+                     </div>
+                    <a href="https://github.com/WIWLEE/TigerHackerton" target="_blank" class="project-link">GitHub URL</a>
+                </article>
+            </div>
         </div>
         
         <div class="container">
@@ -357,7 +385,6 @@
             <li>알고리즘</li>
             <li>딥러닝</li>
             <li>기계학습</li>
-            <li>통계적데이터마이닝</li>
         </ul>
         <ul>
             <li>전자기학개론</li>
@@ -366,6 +393,7 @@
             <li>전자회로</li>
             <li>신호및시스템</li>
             <li>전자전기공학실험</li>
+            <li>지능형 반도체 소자</li>
         </ul>
 </section>
 
@@ -377,7 +405,10 @@
             <li>Flutter</li>
             <li>Python</li>
             <li>Tensorflow</li>
-            <li>HTML/CSS</li>
+            <li>Pytorch</li>
+            <li>HTML/CSS/Javascript</li>
+            <li>REACT/node.js</li>
+            <li>mySQL/Django</li>
         </ul>
         <ul>
             <li>Veroilog</li>
