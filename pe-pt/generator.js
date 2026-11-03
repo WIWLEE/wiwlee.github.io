@@ -8,7 +8,7 @@ $('generationCancel').onclick=()=>{if(generationController)generationController.
 generationDialog.addEventListener('cancel',()=>{if(generationController)generationController.abort()});
 $('generationForm').addEventListener('submit',async e=>{e.preventDefault();if(generating)return;const key=$('openaiKey').value.trim(),model=$('openaiModel').value.trim();if(!key){$('generationError').textContent='OpenAI API 키를 입력하세요.';return}if(!/^[a-zA-Z0-9._-]{1,100}$/.test(model)){$('generationError').textContent='모델 ID를 확인하세요.';return}
 if(($('problem').value.trim()||editor.innerText.trim()||refs.length||messages.length)&&!confirm('새 문제 적용 시 현재 문제·답안·파일·대화·타이머가 초기화됩니다. 필요한 답안은 저장했나요?'))return;
-const role=roleSelect.value;generationLock(true);$('generationError').textContent='';const controller=new AbortController();generationController=controller;const timeout=setTimeout(()=>controller.abort(),150000);
+persistAPI(key,model);const role=roleSelect.value;generationLock(true);$('generationError').textContent='';const controller=new AbortController();generationController=controller;const timeout=setTimeout(()=>controller.abort(),150000);
 try{const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},signal:controller.signal,body:JSON.stringify({model,store:false,input:[{role:'system',content:'반도체 직무 PT 모의 출제자다. JSON 스키마에 맞게 가상 원자료와 문제만 생성하고 정답은 넣지 마라.'},{role:'user',content:PTGenerator.prompt(role)}],max_output_tokens:10000,text:{format:{type:'json_schema',name:'semiconductor_pt_scenario',strict:true,schema:PTGenerator.schema}}})});
 if(!response.ok){const reasons={400:'모델의 Structured Outputs 지원 여부를 확인하세요.',401:'API 키를 확인하세요.',403:'API 권한·지원 지역을 확인하세요.',404:'모델 ID를 변경하세요.',429:'API 한도 또는 잔액을 확인하세요.'};throw Error('OpenAI HTTP '+response.status+': '+(reasons[response.status]||'서비스 오류입니다. 잠시 후 다시 시도하세요.'))}
 const data=PTGenerator.extract(await response.json()),newFiles=PTGenerator.files(data);if(controller.signal.aborted)return;
@@ -17,3 +17,15 @@ clearTimeout(saveTimeout);refs.forEach(r=>{if(r.url)URL.revokeObjectURL(r.url)})
 }finally{clearTimeout(timeout);generationController=null;generationLock(false)}});
 try{const s=JSON.parse(localStorage.getItem(STORE)||'null');if(s&&PTGenerator.roles[s.jobRole])roleSelect.value=s.jobRole}catch(e){}
 document.querySelector('.pill').textContent=roleSelect.value;roleSelect.disabled=submitted;$('generateBtn').disabled=submitted;
+
+const API_STORE='pt-openai-settings';
+function persistAPI(key,model){try{localStorage.setItem(API_STORE,JSON.stringify({key,model}));}catch(e){toast('API 설정 저장에 실패했습니다.');}$('apiKey').value=key;$('model').value=model;$('openaiKey').value=key;$('openaiModel').value=model;$('apiStatus').style.color=key?'#1eaa8d':'#c5becd';}
+try{const config=JSON.parse(localStorage.getItem(API_STORE)||'null');if(config)persistAPI(config.key||'',config.model||'gpt-4.1-mini');}catch(e){}
+$('settings').addEventListener('close',()=>persistAPI($('apiKey').value.trim(),$('model').value.trim()));
+$('forgetKey').onclick=()=>{localStorage.removeItem(API_STORE);$('apiKey').value='';$('openaiKey').value='';$('apiStatus').style.color='#c5becd';toast('저장된 API 키를 삭제했습니다.');};
+const divider=document.createElement('div');divider.className='pane-divider';divider.setAttribute('role','separator');divider.setAttribute('aria-label','문제와 답안 너비 조절');divider.tabIndex=0;document.querySelector('main').append(divider);
+let paneWidth=27;
+function setPaneWidth(value){paneWidth=Math.max(20,Math.min(45,value));document.querySelector('main').style.setProperty('--problem-width',paneWidth+'%');try{localStorage.setItem('pt-pane-width',paneWidth)}catch(e){}}
+try{setPaneWidth(Number(localStorage.getItem('pt-pane-width'))||27)}catch(e){}
+divider.onpointerdown=e=>{divider.setPointerCapture(e.pointerId);divider.onpointermove=ev=>{const rect=document.querySelector('main').getBoundingClientRect();setPaneWidth((ev.clientX-rect.left)/rect.width*100)};divider.onpointerup=()=>{divider.onpointermove=null};};
+divider.onkeydown=e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();setPaneWidth(paneWidth+(e.key==='ArrowLeft'?-1:1))}};
