@@ -58,7 +58,7 @@ function restoreGenerationModel(model){
 }
 $('openaiModel').addEventListener('change',syncGenerationModelField);
 const API_STORE='pt-openai-settings';
-function persistAPI(key,model){try{localStorage.setItem(API_STORE,JSON.stringify({key,model,generationModel:getGenerationModel()}));}catch(e){toast('API 설정 저장에 실패했습니다.');}$('apiKey').value=key;$('model').value=model;$('openaiKey').value=key;$('apiStatus').style.color=key?'#1eaa8d':'#c5becd';}
+function persistAPI(key,model){try{localStorage.setItem(API_STORE,JSON.stringify({key,model,generationModel:getGenerationModel()}));}catch(e){toast('API 설정 저장에 실패했습니다.');}$('apiKey').value=key;$('model').value='gpt-6-astra';$('openaiKey').value=key;$('apiStatus').style.color=key?'#1eaa8d':'#c5becd';}
 try{const config=JSON.parse(localStorage.getItem(API_STORE)||'null');if(config){restoreGenerationModel(config.generationModel||'gpt-6.1-sol');persistAPI(config.key||'',config.model||'gpt-4.1-mini');}}catch(e){}
 $('settings').addEventListener('close',()=>persistAPI($('apiKey').value.trim(),$('model').value.trim()));
 $('forgetKey').onclick=()=>{localStorage.removeItem(API_STORE);$('apiKey').value='';$('openaiKey').value='';$('apiStatus').style.color='#c5becd';toast('저장된 API 키를 삭제했습니다.');};
