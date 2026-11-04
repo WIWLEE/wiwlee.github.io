@@ -11,7 +11,68 @@ function save(silent=false){try{localStorage.setItem(STORE,JSON.stringify({title
 function updateClock(){const n=left();$('clock').textContent=String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');if(running&&n===0){remaining=0;running=false;$('timerBtn').textContent='시간 종료';toast('준비 시간이 끝났습니다. 제출 전까지 수정할 수 있습니다.');save(true)}}
 function lock(){editor.contentEditable=String(!submitted);for(const id of ['title','problem','sendBtn','chatInput','timerBtn','tableBtn','heading','fileInput','jobRole','generateBtn'])$(id).disabled=submitted;document.querySelectorAll('[data-cmd],[data-prompt]').forEach(b=>b.disabled=submitted);$('submitBtn').disabled=submitted;$('submitBtn').textContent=submitted?'제출 완료':'최종 제출 및 PDF'}
 function renderMessage(m,error=false){const box=document.createElement('div');box.className='message '+(m.role==='user'?'user':'assistant')+(error?' error':'');const who=document.createElement('b');who.textContent=error?'연결 안내':m.role==='user'?'YOU':'✦ AI AGENT';const p=document.createElement('p');p.textContent=m.text;box.append(who,p);if(m.role==='model'&&!error){const b=document.createElement('button');b.textContent='답안에 추가';b.onclick=()=>{if(submitted)return toast('제출한 답안입니다. 새 연습을 시작하세요.');const p=document.createElement('p');p.innerText=m.text;editor.append(p);count();save(true)};box.append(b)}$('chat').append(box);$('chat').scrollTop=$('chat').scrollHeight;return box}
-function renderFiles(){$('files').replaceChildren();refs.forEach((r,i)=>{const row=document.createElement('div');row.className='file';const name=document.createElement('span');name.textContent=r.name+(typeof r.text==='string'?' · AI 전달':' · 열람 전용');const view=document.createElement('button');view.textContent='보기';view.onclick=()=>window.open(r.url||URL.createObjectURL(new Blob([r.text],{type:'text/plain;charset=utf-8'})),'_blank','noopener');const del=document.createElement('button');del.textContent='×';del.setAttribute('aria-label','참고자료 삭제');del.onclick=()=>{if(submitted)return;refs.splice(i,1);if(r.url)URL.revokeObjectURL(r.url);renderFiles();save(true)};if(typeof r.text==='string'){const download=document.createElement('button');download.textContent='↓';download.title='파일 다운로드';download.setAttribute('aria-label',r.name+' 다운로드');download.onclick=()=>{const a=document.createElement('a'),isCSV=/\.csv$/i.test(r.name);const url=URL.createObjectURL(new Blob([isCSV?'\uFEFF':'',r.text],{type:isCSV?'text/csv;charset=utf-8':'text/plain;charset=utf-8'}));a.href=url;a.download=r.name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)};row.append(name,view,download,del)}else row.append(name,view,del);$('files').append(row)})}
+function parseReferenceCSV(text){
+  const rows=[];
+  let row=[], cell='', quoted=false;
+  text=text.replace(/^\uFEFF/,'');
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(ch==='"'&&quoted&&text[i+1]==='"'){cell+='"';i++;continue;}
+    if(ch==='"'&&(quoted||!cell)){quoted=!quoted;continue;}
+    if(!quoted&&ch===','){row.push(cell);cell='';continue;}
+    if(!quoted&&(ch==='\r'||ch==='\n')){
+      if(ch==='\r'&&text[i+1]==='\n')i++;
+      row.push(cell);rows.push(row);row=[];cell='';continue;
+    }
+    cell+=ch;
+  }
+  if(cell||row.length){row.push(cell);rows.push(row);}
+  return rows;
+}
+
+function showReferenceTable(file){
+  const rows=parseReferenceCSV(file.text);
+  $('referenceTableTitle').textContent=file.name;
+  const table=$('referenceTable');
+  table.replaceChildren();
+  if(rows.length){
+    const header=table.createTHead().insertRow();
+    rows[0].forEach(value=>{
+      const th=document.createElement('th');
+      th.scope='col';th.textContent=value;header.append(th);
+    });
+    const body=table.createTBody();
+    for(const values of rows.slice(1)){
+      const row=body.insertRow();
+      for(const value of values)row.insertCell().textContent=value;
+    }
+  }
+  $('referenceTableEmpty').hidden=rows.length>0;
+  $('referenceTableDialog').showModal();
+}
+
+function directAnswerOnly(text){
+  const extra=/^(?:[-*•]\s*)?(?:힌트|추가\s*(?:정보|설명|질문|제안|팁)|후속\s*질문|다음\s*단계|참고로|덧붙이면|더\s*(?:자세히|궁금)|원하시면|필요하시면|혹시|도움이\s*필요|(?:어떻게|무엇을)\s*생각)/;
+  const lines=[];
+  for(const line of text.split(/\r?\n/)){
+    const clean=line.trim();
+    if(!clean)continue;
+    if(extra.test(clean.replace(/\*\*/g,'')))break;
+    // Split prose sentences without splitting decimals or units.
+    const sentences=clean.match(/.*?(?:[.?!](?=\s|$)|$)/g).filter(Boolean);
+    for(const sentence of sentences){
+      const part=sentence.trim();
+      if(!part)continue;
+      if(part.endsWith('?')||extra.test(part.replace(/\*\*/g,'')))return lines.join('\n');
+      if(!lines.length||lines[lines.length-1].length>180||!sentences[0]||sentence===sentences[0])lines.push(part);
+      else lines[lines.length-1]+=' '+part;
+      if(lines.length>=10)return lines.join('\n');
+    }
+  }
+  return lines.join('\n');
+}
+
+function renderFiles(){$('files').replaceChildren();refs.forEach((r,i)=>{const row=document.createElement('div');row.className='file';const name=document.createElement('span');name.textContent=r.name+(typeof r.text==='string'?' · AI 전달':' · 열람 전용');const view=document.createElement('button');const canTable=typeof r.text==='string'&&/\.csv$/i.test(r.name);view.textContent=canTable?'표 보기':'보기';view.onclick=()=>canTable?showReferenceTable(r):window.open(r.url||URL.createObjectURL(new Blob([r.text],{type:'text/plain;charset=utf-8'})),'_blank','noopener');const del=document.createElement('button');del.textContent='×';del.setAttribute('aria-label','참고자료 삭제');del.onclick=()=>{if(submitted)return;refs.splice(i,1);if(r.url)URL.revokeObjectURL(r.url);renderFiles();save(true)};if(typeof r.text==='string'){const download=document.createElement('button');download.textContent='↓';download.title='파일 다운로드';download.setAttribute('aria-label',r.name+' 다운로드');download.onclick=()=>{const a=document.createElement('a'),isCSV=/\.csv$/i.test(r.name);const url=URL.createObjectURL(new Blob([isCSV?'\uFEFF':'',r.text],{type:isCSV?'text/csv;charset=utf-8':'text/plain;charset=utf-8'}));a.href=url;a.download=r.name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)};row.append(name,view,download,del)}else row.append(name,view,del);$('files').append(row)})}
 try{const s=JSON.parse(localStorage.getItem(STORE)||'null');if(s){answerReference=s.answerReference||null;$('title').value=s.title||'';$('problem').value=s.problem||'';editor.innerHTML=cleanHTML(s.answer||'');messages=Array.isArray(s.messages)?s.messages:[];refs=Array.isArray(s.refs)?s.refs:[];submitted=!!s.submitted;remaining=typeof s.remaining==='number'?Math.max(0,s.remaining):1800;if(s.deadline&&!submitted){deadline=s.deadline;running=deadline>Date.now();if(!running)remaining=0}if(messages.length){$('chat').replaceChildren();messages.forEach(m=>renderMessage(m))}$('saveState').textContent='저장한 답안 복원됨'}}catch(e){toast('저장 내용을 불러오지 못했습니다.')}
 count();renderFiles();lock();updateClock();if(running)$('timerBtn').textContent='일시정지';setInterval(updateClock,400);
 let saveTimeout;for(const el of [editor,$('title'),$('problem')])el.addEventListener('input',()=>{count();$('saveState').textContent='저장 중…';clearTimeout(saveTimeout);saveTimeout=setTimeout(()=>save(true),700)});
@@ -36,7 +97,8 @@ async function askAI(){
     problem:$('problem').value,
     draft:editor.innerText,
     references:refs.filter(file=>typeof file.text==='string').map(({name,text})=>({name,text})),
-    conversation:messages.slice(-7)
+    previousQuestions:messages.slice(-7,-1).filter(message=>message.role==='user').map(message=>message.text),
+    question:messages.at(-1)?.text||''
   });
   for(const model of models){
     if(!model)continue;
@@ -53,7 +115,7 @@ async function askAI(){
     const answer=(data.output||[]).flatMap(item=>item.content||[])
       .filter(part=>part.type==='output_text').map(part=>part.text).join('\n').trim();
     if(!answer)throw Error('답변을 받지 못했습니다. 질문을 다시 보내세요.');
-    return answer.split(/\r?\n/).filter(line=>line.trim()).slice(0,10).join('\n');
+    return directAnswerOnly(answer)||'질문에 대한 답을 확인할 수 없습니다.';
   }
   throw Error('접근 가능한 답변 모델이 없습니다. 문제 생성에서 계정에 연결된 출제 모델을 선택해 저장한 뒤 다시 질문하세요.');
 }
