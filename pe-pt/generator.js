@@ -6,7 +6,7 @@ $('generateBtn').onclick=()=>{if(busy||generating)return toast('AI 요청이 끝
 function generationLock(active){generating=active;$('generateBtn').disabled=active||submitted;roleSelect.disabled=active||submitted;$('startGeneration').disabled=active;$('generationCancel').textContent=active?'생성 취소':'닫기';for(const id of ['title','problem','sendBtn','chatInput','timerBtn','tableBtn','heading','fileInput','submitBtn','resetBtn','clearChat'])$(id).disabled=active||submitted;editor.contentEditable=String(!active&&!submitted);document.querySelectorAll('[data-cmd],[data-prompt],.file button,.message button').forEach(b=>b.disabled=active||submitted);$('generationStatus').textContent=active?'시나리오와 참고자료 3개를 생성 중입니다. 최대 4분 정도 걸릴 수 있습니다.':''}
 $('generationCancel').onclick=()=>{if(generationController)generationController.abort();generationDialog.close()};
 generationDialog.addEventListener('cancel',()=>{if(generationController)generationController.abort()});
-$('generationForm').addEventListener('submit',async e=>{e.preventDefault();if(generating)return;const key=$('openaiKey').value.trim(),model=$('openaiModel').value.trim();if(!key){$('generationError').textContent='OpenAI API 키를 입력하세요.';return}if(!/^[a-zA-Z0-9._-]{1,100}$/.test(model)){$('generationError').textContent='모델 ID를 확인하세요.';return}
+$('generationForm').addEventListener('submit',async e=>{e.preventDefault();if(generating)return;const key=$('openaiKey').value.trim(),model=getGenerationModel();if(!key){$('generationError').textContent='OpenAI API 키를 입력하세요.';return}if(!/^[a-zA-Z0-9._-]{1,100}$/.test(model)){$('generationError').textContent='모델 ID를 확인하세요.';return}
 if(($('problem').value.trim()||editor.innerText.trim()||refs.length||messages.length)&&!confirm('새 문제 적용 시 현재 문제·답안·파일·대화·타이머가 초기화됩니다. 필요한 답안은 저장했나요?'))return;
 persistAPI(key,$('model').value);const role=roleSelect.value;generationLock(true);$('generationError').textContent='';const controller=new AbortController();generationController=controller;const timeout=setTimeout(()=>controller.abort(),240000);
 try{
@@ -38,9 +38,28 @@ clearTimeout(saveTimeout);refs.forEach(r=>{if(r.url)URL.revokeObjectURL(r.url)})
 try{const s=JSON.parse(localStorage.getItem(STORE)||'null');if(s&&PTGenerator.roles[s.jobRole])roleSelect.value=s.jobRole}catch(e){}
 document.querySelector('.pill').textContent=roleSelect.value;roleSelect.disabled=submitted;$('generateBtn').disabled=submitted;
 
+function getGenerationModel(){
+  const selected=$('openaiModel').value;
+  return selected==='custom'?$('customGenerationModel').value.trim():selected;
+}
+function syncGenerationModelField(){
+  const custom=$('openaiModel').value==='custom';
+  $('customGenerationModelField').hidden=!custom;
+  $('customGenerationModel').required=custom;
+}
+function restoreGenerationModel(model){
+  const select=$('openaiModel');
+  select.value=model;
+  if(!select.value||select.value==='custom'){
+    select.value='custom';
+    $('customGenerationModel').value=model;
+  }
+  syncGenerationModelField();
+}
+$('openaiModel').addEventListener('change',syncGenerationModelField);
 const API_STORE='pt-openai-settings';
-function persistAPI(key,model){try{localStorage.setItem(API_STORE,JSON.stringify({key,model,generationModel:$('openaiModel').value.trim()}));}catch(e){toast('API 설정 저장에 실패했습니다.');}$('apiKey').value=key;$('model').value=model;$('openaiKey').value=key;$('apiStatus').style.color=key?'#1eaa8d':'#c5becd';}
-try{const config=JSON.parse(localStorage.getItem(API_STORE)||'null');if(config){$('openaiModel').value=config.generationModel||'gpt-6.1-sol';persistAPI(config.key||'',config.model||'gpt-4.1-mini');}}catch(e){}
+function persistAPI(key,model){try{localStorage.setItem(API_STORE,JSON.stringify({key,model,generationModel:getGenerationModel()}));}catch(e){toast('API 설정 저장에 실패했습니다.');}$('apiKey').value=key;$('model').value=model;$('openaiKey').value=key;$('apiStatus').style.color=key?'#1eaa8d':'#c5becd';}
+try{const config=JSON.parse(localStorage.getItem(API_STORE)||'null');if(config){restoreGenerationModel(config.generationModel||'gpt-6.1-sol');persistAPI(config.key||'',config.model||'gpt-4.1-mini');}}catch(e){}
 $('settings').addEventListener('close',()=>persistAPI($('apiKey').value.trim(),$('model').value.trim()));
 $('forgetKey').onclick=()=>{localStorage.removeItem(API_STORE);$('apiKey').value='';$('openaiKey').value='';$('apiStatus').style.color='#c5becd';toast('저장된 API 키를 삭제했습니다.');};
 const divider=document.createElement('div');divider.className='pane-divider';divider.setAttribute('role','separator');divider.setAttribute('aria-label','문제와 답안 너비 조절');divider.tabIndex=0;document.querySelector('main').append(divider);
