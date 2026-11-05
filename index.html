@@ -1,428 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Portfolio</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
-
-        body {
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            /* text-align: center;*/
-        }
-
-        header {
-            background: #5D1049; 
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        nav ul {
-            padding: 0;
-            list-style: none;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #FFD700; 
-        }
-
-
-        #portfolio {
-            text-align: center;
-            padding: 30px 0;
-        }
-        
-        #portfolio img {
-            border-radius: 20%;
-            margin: 10px; 
-            border: 5px solid #5D1049;
-            object-fit: cover; 
-            transition: transform 0.3s ease; 
-        }
-
-        #portfolio h1 {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .social-links {
-            margin: 15px 0;
-        }
-
-        .social-links a {
-            text-decoration: none;
-            margin: 0 10px;
-            color: #5D1049; 
-            font-size: 24px;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #FFD700; 
-        }
-
-        .project {
-            background-color: #ffffff; 
-            margin: 20px auto; 
-            padding: 30px 0;
-            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-            border: 2px solid #9575CD; 
-            border-radius: 10px; 
-        }
-
-        .assignments {
-            background-color: #ffffff; 
-        }
-
-        .project a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        .project a:hover {
-            background-color: #555;
-        }
-
-        .project-link {
-            text-decoration: none;
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 0px;
-            border-radius: 4px;
-            background-color: #7e2767;
-            color: #ffffff;
-            transition: background-color 0.3s;
-        }
-
-        .project-link:hover,
-        .project-link:focus {
-            background-color: #ffd899;
-        }
-
-
-        #projects h2 {
-            text-transform: uppercase;
-            color: #5D1049; 
-            font-weight: 600;
-        }
-
-        #projects p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        #skills ul {
-            list-style: none;
-            text-align: center;
-            margin : 0 0;
-        }
-
-        #skills h2{
-            text-align: center;
-            margin-top : 100px;
-            text-transform: uppercase;
-            color: #5D1049; 
-            font-weight: 600;
-        }
-
-        #skills li {
-            background: #5D1049; 
-            display: inline-block;
-            margin: 5px;
-            margin-bottom : 10px;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-weight: 300;
-        }
-
-        #study li {
-            background: #b762a1; 
-            display: inline-block;
-            margin: 5px;
-            margin-bottom : 10px;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-weight: 300;
-        }
-
-        #study ul {
-            list-style: none;
-            text-align: center;
-            margin : 0 0;
-        }
-
-        #study h2{
-            text-align: center;
-            margin-top : 100px;
-            text-transform: uppercase;
-            color: #b762a1;
-            font-weight: 600;
-        }
-
-        footer {
-            background: #333;
-            color: #fff;
-            margin-top: 50px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-
-        .flex-container {
-            display: flex;
-            align-items: start;
-            justify-content: space-start;
-            min-width: 700px;
-            margin: 0 200px;
-            gap: 10px;
-        }
-        
-        .container {
-            align-items: flex-start; 
-            flex: 1;
-            max-width: auto;
-            margin: auto;
-            padding: 0 0px;
-        }
-        
-        .flex-item {
-            background-color: #ffffff; 
-            padding: 20px;
-            margin-top: 20px; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
-
-        @media (max-width: 500px) {
-            .flex-container {
-                flex-direction: column;
-            }
-        
-            .container {
-                margin: 0 10px;
-            }
-        }
-
-        #web {
-            width: 200px;
-            height: 120px;
-            background-size: cover;
-        }
-
-        
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="이지현의 이력과 프로젝트. 컴퓨터공학과 전자전기공학을 바탕으로 소프트웨어와 반도체를 연결합니다.">
+  <title>이지현 · Jihyun Lee</title>
+  <style>
+    :root { color-scheme:light; --ink:#192b35; --muted:#68757d; --accent:#166c69; --line:#e2e8e8; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f3f5f4; color:var(--ink); font:14px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif; }
+    a { color:inherit; text-decoration:none; text-underline-offset:4px; }
+    a:hover { color:var(--accent); text-decoration:underline; }
+    a:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+    .resume { max-width:980px; margin:48px auto; padding:52px 64px 30px; background:#fff; border:1px solid var(--line); }
+    header { border-bottom:2px solid var(--ink); padding-bottom:28px; }
+    .eyebrow { font-size:10px; letter-spacing:2px; color:var(--accent); font-weight:700; margin:0 0 10px; }
+    .identity { display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
+    h1 { font-size:38px; line-height:1.3; letter-spacing:-1.7px; margin:0; }
+    .english { font-size:20px; letter-spacing:-.4px; color:var(--muted); font-weight:400; }
+    .intro { margin:14px 0 16px; font-size:15px; }
+    .links { display:flex; gap:8px 20px; flex-wrap:wrap; font-size:12px; color:var(--muted); }
+    .links a:last-child { color:var(--accent); }
+    main { display:grid; grid-template-columns:minmax(0,1fr) 225px; gap:40px; padding-top:30px; }
+    section { margin-bottom:27px; }
+    h2 { font-size:12px; letter-spacing:1px; margin:0 0 15px; padding-bottom:8px; border-bottom:1px solid var(--line); color:var(--accent); }
+    h3 { font-size:14px; margin:0; line-height:1.5; font-weight:650; }
+    article { margin-bottom:18px; break-inside:avoid; }
+    article:last-child { margin-bottom:0; }
+    p { margin:5px 0 0; }
+    .detail { font-size:12px; color:var(--muted); margin-top:3px; }
+    .project-title { display:flex; align-items:baseline; gap:10px; justify-content:space-between; }
+    .source { flex-shrink:0; font-size:10px; color:var(--muted); }
+    .project p { font-size:12px; color:var(--muted); }
+    .sub { margin-bottom:16px; }
+    .sub p { font-size:12px; color:var(--muted); }
+    .skills { display:flex; gap:5px 7px; flex-wrap:wrap; padding:0; margin:7px 0 0; list-style:none; }
+    .skills li { font-size:11px; background:#f3f6f5; padding:2px 7px; border-radius:3px; }
+    .label { font-size:11px; font-weight:650; margin-top:14px; }
+    footer { padding-top:14px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:var(--muted); font-size:10px; }
+    @media(max-width:740px) {
+      body { background:white; }
+      .resume { border:0; margin:0; padding:32px 24px 24px; }
+      main { grid-template-columns:1fr; gap:0; }
+      h1 { font-size:33px; }
+      .identity { gap:12px; }
+      .english { font-size:18px; }
+      .project-title { align-items:start; }
+    }
+    @page { size:A4; margin:13mm; }
+    @media print {
+      body { background:white; font-size:10px; }
+      .resume { margin:0; padding:0; max-width:none; border:0; }
+      header { padding-bottom:15px; }
+      h1 { font-size:27px; }
+      .english { font-size:16px; }
+      .intro { font-size:11px; margin:9px 0; }
+      .links { font-size:9px; }
+      main { grid-template-columns:minmax(0,1fr) 180px; gap:25px; padding-top:18px; }
+      section { margin-bottom:17px; }
+      h2 { font-size:10px; margin-bottom:10px; padding-bottom:5px; }
+      h3 { font-size:11px; }
+      article { margin-bottom:12px; }
+      .project p,.detail,.sub p { font-size:9px; }
+      .skills li { font-size:8px; }
+      .label { font-size:9px; margin-top:9px; }
+      footer { font-size:8px; padding-top:8px; }
+    }
+  </style>
 </head>
 <body>
+  <div class="resume">
     <header>
-        <nav>
-            <ul>
-                <li><a href="#study">Study</a></li>
-                <li><a href="#real_portfolio">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+      <p class="eyebrow">ENGINEERING · SOFTWARE · SEMICONDUCTOR</p>
+      <div class="identity"><h1>이지현</h1><span class="english">Jihyun Lee</span></div>
+      <p class="intro">소통하는 공학자. 소프트웨어 구현과 반도체 특성 분석을 경험했습니다.</p>
+      <nav class="links" aria-label="연락처와 외부 링크">
+        <a href="mailto:io0818@postech.ac.kr">io0818@postech.ac.kr</a>
+        <a href="https://github.com/wiwlee">GitHub ↗</a>
+        <a href="https://velog.io/@io0818/posts">Velog ↗</a>
+        <a href="CV.pdf" download>CV 다운로드 ↓</a>
+      </nav>
     </header>
-
-    <section id="portfolio" class="container">
-        <img src="profile2.jpg" alt="profile" width="150", height="200">
-        <h1>Jihyun Lee</h1>
-        <p>소통하는 공학자, 이지현입니다</p>
-        <p>POSTECH에서 컴퓨터공학과 전자전기공학을 전공하고 있습니다</p>
-        <div class="social-links">
-            <a href="https://github.com/wiwlee">GitHub</a>
-            <a href="https://velog.io/@io0818/posts">Velog</a>
-            <a href="https://instagram.com/zhyunnni_">Instagram</a>
-            <a href="https://wiwlee.github.io/CV.pdf" download>CV</a>
-        </div>
-    </section>
-
-    <section id = "real_portfolio">
-    <div class="flex-container">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="flex-item projects">
-                <article>
-                    <h3>게임 패드 모바일 크로스플랫폼 Application</h3>
-                    <p>Samsung Electronics DX VD 사업부 IS랩에서 6주동안 인턴 근무를 진행하였습니다. Smart TV의 게임 패널의 활용성을 높이기 위해 Game Pad Application 프로토타입을 제작하였습니다</p>
-                    <img src = "src/pot1.jpg" width="65">
-                    <img src = "src/pot2.jpeg" width="290">
-                </article>
-            </div>
-            <div class="flex-item projects">
-                <article>
-                    <h3>멀티 추론 게임 'PONDOR'</h3>
-                    <p>게임 개발 동아리 GPOS에서 NDM 대회를 출전하며 제작한 게임으로, 논리 퍼즐 중 하나인 양팔 저울 문제를 모티브로 제작된 여럿이서 즐길 수 있는 추리 게임입니다.
-                        자신이 시민인지 능력자인지 알 수 없다는 조건 속에서 자신만의 정보를 활용해 적극적인 토론으로 자신의 정보는 숨기고 다른 사람의 정보를 추리해야 하는 게임입니다.</p>
-                    <a href="https://github.com/WIWLEE/Ponder" target="_blank" class="project-link">GitHub URL</a>
-                </article>
-            </div>
-            <div class="flex-item projects">
-                <article>
-                    <h3>Verilog HDL를 이용한 FPGA 구현 : 기억력 테스트</h3>
-                    <p>LED의 On-Off 순서 및 개수를 기억하고 기억력을 테스트하는 게임이다. </p>
-                    <img src = "src/pot3.jpg" width="400">
-                    <a href="https://github.com/WIWLEE/CSED273" target="_blank" class="project-link">GitHub URL</a>
-                </article>
-            </div>
-            <div class="flex-item projects">
-                <article>
-                    <h3>포스테키안 특화 중고시장 모바일 플랫폼</h3>
-                    <p>UGRP(학부생 연구 프로그램) 프로젝트를 통해서 중고 시장 앱 제작 및 출시를 진행하였습니다</p>
-                    <img src = "src/pot4.jpg" width="150">
-                    <img src = "src/pot5.jpg" width="150">
-                    <img src = "src/pot6.jpg" width="150">
-                    <a href="https://github.com/WIWLEE/SupoMarket" target="_blank" class="project-link">GitHub URL</a>
-                </article>
-            </div>
-            <div class="flex-item projects">
-                <article>
-                    <h3>User workload 환경에서 waf의 major factor 검증</h3>
-                    <p>SK 하이닉스 Solution PE 부서에서 반도체 수명 신뢰성 지표 WAI값을 host write에 따라서 분석하고, 유저 워크로드 상에서 Idle 시간에 따른 그래프 개형을 분석하였습니다.  </p>
-                    <p>Idle의 시간을 1s이상 주었을 때 (2s, 5s) 모두 유사한 개형을 띄었고, 1s 라는 시간이 sSLC가 모두 migration되는 충분한 시간임을 확인할 수 있었습니다. Delay를 주지 않았을 때에는 계속해서 nvme command가 입력되어 sSLC가 migration될 수 없음을 알 수 있었고, dSLC를 사용해 WAI가 빨리 올라가기 때문에 수명이 낮아지는 것까지 확인할 수 있었습니다. </p>
-                </article>
-            </div>
-            <div class="flex-item projects">
-                <article>
-                    <div>
-                        <h3>TIGER HACK Food Ingredient Manager</h3>
-                        <p>Tiger Hackerton in U of missouri 에서 진행한 음식 위생 관리 매니저 웹입니다. REACT, node.js, mySQL 이용하였습니다</p>
-                        <img id = "web" src = "src/web 1.png" width="150" >
-                        <img id = "web" src = "src/web 2.png" width="150">
-                        <img id = "web" src = "src/web 3.png" width="150">
-                        <img id = "web" src = "src/web 4.png" width="150">
-                        <!-- <img id = "web" src = "src/web 5.png" width="150"> -->
-                     </div>
-                    <a href="https://github.com/WIWLEE/TigerHackerton" target="_blank" class="project-link">GitHub URL</a>
-                </article>
-            </div>
-        </div>
-        
-        <div class="container">
-            <h2>Research/Experiment</h2>
-            <div class="flex-item assignments">
-                <article>
-                    <h3>Capstone Design Project in EE</h3>
-                    <p>Reconfigurable 로직 데모 kit를 제작하고 소모전력절감 효과를 검증하는 것을 목표로 합니다. 
-                        기존에 사용했던 Te-ZnO AAS 소자가 아닌, 새로운 구조의 Unit cell을 디자인하여 
-                        and, or의 reconfigurable 특성을 관찰하고 모델링을 진행합니다. 
-                        이후 해당 AAS 기반으로 logic gate 및 mux, adder 등 상위 회로를 이용해 demo kit를 설계하여
-                        CMOS회로와 전력 소모 및 동작 주파수를 비교할 예정입니다. 
-                        해당 연구를 통해 기존의 회로의 소모 전력을 절감시키고 보다 적은 개수의 소자를 사용하여 
-                        구현할 수 있는 효과를 기대할 수 있습니다. </p>
-                </article>
-            </div>
-            <div class="flex-item assignments">
-                <article>
-                    <h3>Task Study Project in CSE</h3>
-                    <p>첫 번째 가설 ‘워터마킹은 한글 텍스트에 잘 적용되지 않을 것이다’의 검증을 진행합니다. 
-                        한글 전처리 패키지, 토크나이징 과정을 학습하며 한글 언어모델의 배경
-                        학습과 활용 방법을 구상합니다. 이후 A Watermark for Large Language Models (Maryland,
-                        2023) 알고리즘(Text Generation with Hard Red List, Soft Red List, Private watermarking)을
-                        이용해 특정 한글 언어모델에 적용시켜 성능 지표를 확인합니다. 기본적으로 논문에서
-                        사용한 유형 I 오류(인간의 텍스트가 워터마킹된 경우)와 유형 II 오류(기계 텍스트가
-                        감지되지 않는 경우) 비율을 사용하여 워터마크 강도를 측정할 수 있습니다.</p>
-                </article>
-            </div>
-            <div class="flex-item assignments">
-                <article>
-                    <h3>Electronics&Electrical Eng.Lab 1</h3>
-                    <p>1. 심전도 보드 제작 및 측정<br>
-                        2. Quadcopter의 위치 및 자세 제어 실습 및 자율 비행 실습<br>
-                        3. 딥러닝을 이용한 영상 인식 실습 <br>
-                        4. 마이크로 컨트롤러 응용시스템 <br>
-                        5. MATLAB을 이용한 통신 실험<br>
-                        6. 초음파 센서의 원리와 응용<br>
-                        7. FPGA를 이용한 디지털 시스템 설계</p>
-                </article>
-            </div>
-            <div class="flex-item assignments">
-                <article>
-                    <h3>Electronics&Electrical Eng.Lab 2</h3>
-                    <p>전자전기공학 실험2</p>
-                    <a href="https://github.com/WIWLEE/EEengLab" target="_blank" class="project-link">GitHub URL</a>
-                </article>
-            </div>
-        </div>
-    </div>
-</section>
-    
-    
-    <section id="study">
-        <h2>Study</h2>
-        <ul>
-            <li>데이터구조</li>
-            <li>객체지향프로그래밍</li>
-            <li>컴퓨터구조</li>
-            <li>운영체제</li>
-            <li>알고리즘</li>
-            <li>딥러닝</li>
-            <li>기계학습</li>
-        </ul>
-        <ul>
-            <li>전자기학개론</li>
-            <li>디지털시스템설계</li>
-            <li>회로이론</li>
-            <li>전자회로</li>
-            <li>신호및시스템</li>
-            <li>전자전기공학실험</li>
-            <li>지능형 반도체 소자</li>
-        </ul>
-</section>
-
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>C/C++</li>
-            <li>C#</li>
-            <li>Flutter</li>
-            <li>Python</li>
-            <li>Tensorflow</li>
-            <li>Pytorch</li>
-            <li>HTML/CSS/Javascript</li>
-            <li>REACT/node.js</li>
-            <li>mySQL/Django</li>
-        </ul>
-        <ul>
-            <li>Veroilog</li>
-            <li>MatLab</li>
-            <li>LTSpice</li>
-            <li>HSpice</li>
-            <li>Origin</li>
-        </ul>
-    </section>
-
-    <section id="contact">
-    <footer>
-        <p>Contact information</p>
-        <p>io0818@postech.ac.kr</p>
-    </footer>
-    </section>
+    <main>
+      <div>
+        <section aria-labelledby="experience">
+          <h2 id="experience">EXPERIENCE · 실무 경험</h2>
+          <article>
+            <h3>Samsung Electronics · DX VD 사업부 IS랩</h3>
+            <p class="detail">인턴 · 6주</p>
+            <p class="detail">Smart TV 게임 패널의 활용성을 높이는 모바일 Game Pad 애플리케이션 프로토타입 제작.</p>
+          </article>
+          <article>
+            <h3>SK hynix · Solution PE</h3>
+            <p class="detail">사용자 워크로드 기반 SSD 수명·신뢰성 분석</p>
+            <p class="detail">Host Write와 Idle 시간에 따른 WAI 변화를 분석하고, sSLC 마이그레이션과 수명 지표의 관계 검토.</p>
+          </article>
+        </section>
+        <section aria-labelledby="research">
+          <h2 id="research">RESEARCH · 연구 경험</h2>
+          <article>
+            <h3>AAS 소자 기반 재구성 가능 논리회로</h3>
+            <p class="detail">전자전기공학 캡스톤 설계</p>
+            <p class="detail">새로운 구조의 단위 셀에서 AND·OR 재구성 특성을 관찰·모델링. 논리회로 데모 및 CMOS 대비 전력·주파수 비교를 목표로 진행.</p>
+          </article>
+          <article>
+            <h3>한국어 언어모델의 텍스트 워터마킹</h3>
+            <p class="detail">컴퓨터공학 과제 연구</p>
+            <p class="detail">한국어 전처리·토크나이징 특성을 학습하고, 언어모델 워터마킹 알고리즘의 적용과 탐지 오류율 평가 연구.</p>
+          </article>
+        </section>
+        <section class="project" aria-labelledby="projects">
+          <h2 id="projects">PROJECTS · 주요 프로젝트</h2>
+          <article>
+            <div class="project-title"><h3>PONDOR · 멀티 추론 게임</h3><a class="source" href="https://github.com/WIWLEE/Ponder">코드 ↗</a></div>
+            <p>게임 개발 동아리 GPOS의 NDM 출전작. 양팔 저울 퍼즐을 바탕으로 정보 추론과 토론을 결합한 게임 제작.</p>
+          </article>
+          <article>
+            <div class="project-title"><h3>SupoMarket · 교내 중고거래 플랫폼</h3><a class="source" href="https://github.com/WIWLEE/SupoMarket">코드 ↗</a></div>
+            <p>학부생 연구 프로그램 UGRP에서 POSTECH 구성원을 위한 중고거래 모바일 앱 제작·출시.</p>
+          </article>
+          <article>
+            <div class="project-title"><h3>FPGA 기억력 테스트</h3><a class="source" href="https://github.com/WIWLEE/CSED273">코드 ↗</a></div>
+            <p>Verilog HDL로 LED 점등 순서와 개수를 기억하는 디지털 시스템 구현.</p>
+          </article>
+          <article>
+            <div class="project-title"><h3>Food Ingredient Manager</h3><a class="source" href="https://github.com/WIWLEE/TigerHackerton">코드 ↗</a></div>
+            <p>University of Missouri의 Tiger Hackathon에서 음식 위생 관리 웹 개발. React, Node.js, MySQL 사용.</p>
+          </article>
+        </section>
+      </div>
+      <aside>
+        <section aria-labelledby="education">
+          <h2 id="education">EDUCATION · 학력</h2>
+          <div class="sub"><h3>POSTECH</h3><p>컴퓨터공학<br>전자전기공학</p></div>
+        </section>
+        <section aria-labelledby="skills">
+          <h2 id="skills">SKILLS · 기술</h2>
+          <p class="label">프로그래밍</p>
+          <ul class="skills"><li>Python</li><li>C / C++</li><li>C#</li><li>JavaScript</li><li>Verilog</li></ul>
+          <p class="label">소프트웨어 · AI</p>
+          <ul class="skills"><li>PyTorch</li><li>TensorFlow</li><li>Flutter</li><li>React</li><li>Node.js</li><li>Django</li><li>MySQL</li><li>HTML / CSS</li></ul>
+          <p class="label">실험 · 분석</p>
+          <ul class="skills"><li>MATLAB</li><li>LTspice</li><li>HSPICE</li><li>Origin</li></ul>
+        </section>
+        <section aria-labelledby="coursework">
+          <h2 id="coursework">COURSEWORK · 학습 분야</h2>
+          <div class="sub"><h3>컴퓨터공학</h3><p>자료구조 · 알고리즘<br>운영체제 · 컴퓨터구조<br>기계학습 · 딥러닝</p></div>
+          <div class="sub"><h3>전자전기공학</h3><p>회로이론 · 전자회로<br>신호 및 시스템 · 전자기학<br>디지털 시스템 · 반도체 소자</p></div>
+          <a class="source" href="https://github.com/WIWLEE/EEengLab">전자전기공학 실험 기록 ↗</a>
+        </section>
+      </aside>
+    </main>
+    <footer><span>Jihyun Lee</span><span>Computer Science &amp; Electrical Engineering</span></footer>
+  </div>
+</body>
 </html>
