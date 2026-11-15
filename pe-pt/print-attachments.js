@@ -5,6 +5,18 @@ async function appendPrintFiles(doc,container,files){
     const title=doc.createElement('h3');
     title.textContent=file.name;
     container.append(title);
+    if(referenceImage(file)){
+      const image=doc.createElement('img');
+      image.style.cssText='display:block;max-width:100%;max-height:210mm;object-fit:contain;break-inside:avoid';
+      image.src=file.image;
+      image.alt=file.text||file.name;
+      container.append(image);
+      await image.decode();
+      const caption=doc.createElement('p');
+      caption.textContent=file.text||file.name;
+      container.append(caption);
+      continue;
+    }
     if(typeof file.text==='string'&&/\.csv$/i.test(file.name)){
       const [labels,...rows]=parseReferenceCSV(file.text);
       if(!labels){container.append(doc.createTextNode('표시할 데이터가 없습니다.'));continue;}
